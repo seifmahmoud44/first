@@ -1,4 +1,13 @@
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct } from "../store/addSlice";
+
 const Index = () => {
+  const state = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  const deleteHandel = (id) => {
+    dispatch(deleteProduct(id));
+  };
   return (
     <table>
       <thead>
@@ -10,26 +19,26 @@ const Index = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Product one</td>
-          <td>2000</td>
-          <td>
-            <button className="edit">Edit</button>
-          </td>
-          <td>
-            <button>Delete</button>
-          </td>
-        </tr>
-        <tr>
-          <td>Product tow</td>
-          <td>2000</td>
-          <td>
-            <button className="edit">Edit</button>
-          </td>
-          <td>
-            <button>Delete</button>
-          </td>
-        </tr>
+        {state.length !== 0 ? (
+          state.map((item, index) => {
+            return (
+              <tr key={index}>
+                <td>{item.title}</td>
+                <td>{item.price}</td>
+                <td>
+                  <button className="edit">Edit</button>
+                </td>
+                <td>
+                  <button onClick={() => deleteHandel(index)}>Delete</button>
+                </td>
+              </tr>
+            );
+          })
+        ) : (
+          <tr>
+            <td>no data avilanle</td>
+          </tr>
+        )}
       </tbody>
     </table>
   );

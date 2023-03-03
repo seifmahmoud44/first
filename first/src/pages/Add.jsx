@@ -2,11 +2,13 @@ import React, { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../store/addSlice";
+import { useNavigate } from "react-router-dom";
 
 const Add = () => {
   const state = useSelector((state) => state);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -17,6 +19,7 @@ const Add = () => {
 
     setTitle("");
     setPrice("");
+    navigate("/");
   };
 
   return (
