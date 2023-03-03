@@ -1,14 +1,24 @@
 import React, { useState } from "react";
 
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct } from "../store/addSlice";
+
 const Add = () => {
+  const state = useSelector((state) => state);
+
+  const dispatch = useDispatch();
+
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const hanelSubmit = (e) => {
     e.preventDefault();
-    console.log(title, price);
+    const data = { title, price };
+    dispatch(addProduct(data));
+
     setTitle("");
     setPrice("");
   };
+
   return (
     <form onSubmit={hanelSubmit}>
       <div className="email">

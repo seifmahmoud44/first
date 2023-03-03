@@ -9,7 +9,8 @@ import Signup from "../src/pages/Signup";
 import Signin from "../src/pages/Signin";
 import Index from "../src/pages/Index";
 import Edit from "./pages/Edit";
-
+import store from "./store/store";
+import { Provider } from "react-redux";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -40,4 +41,8 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={router} />);
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={router} />
+  </Provider>
+);
