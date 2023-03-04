@@ -1,12 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct } from "../store/addSlice";
+import { useNavigate } from "react-router-dom";
+import { deleteProduct, editProduct } from "../store/addSlice";
 
 const Index = () => {
   const state = useSelector((state) => state.products);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const deleteHandel = (id) => {
     dispatch(deleteProduct(id));
+  };
+  const editHandel = (item) => {
+    dispatch(editProduct(item));
+    navigate(`/edit/${item.id}`);
   };
   return (
     <table>
@@ -20,16 +27,18 @@ const Index = () => {
       </thead>
       <tbody>
         {state.length !== 0 ? (
-          state.map((item, index) => {
+          state.map((item) => {
             return (
-              <tr key={index}>
+              <tr key={item.id}>
                 <td>{item.title}</td>
                 <td>{item.price}</td>
                 <td>
-                  <button className="edit">Edit</button>
+                  <button className="edit" onClick={() => editHandel(item)}>
+                    Edit
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => deleteHandel(index)}>Delete</button>
+                  <button onClick={() => deleteHandel(item.id)}>Delete</button>
                 </td>
               </tr>
             );

@@ -1,11 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProduct } from "../store/addSlice";
+import { useNavigate } from "react-router-dom";
 
 const Edit = () => {
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
+  const state = useSelector((state) => state.updateProduct);
+  const id = useSelector((state) => state.updateProduct.id);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    setTitle(state.title);
+    setPrice(state.price);
+  }, [state]);
   const hanelSubmit = (e) => {
     e.preventDefault();
-    console.log(title, price);
+    const uData = { title, price, id };
+    dispatch(updateProduct(uData));
+    navigate("/");
     setTitle("");
     setPrice("");
   };

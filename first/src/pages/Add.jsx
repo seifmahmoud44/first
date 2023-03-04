@@ -14,7 +14,9 @@ const Add = () => {
   const [price, setPrice] = useState("");
   const hanelSubmit = (e) => {
     e.preventDefault();
-    const data = { title, price };
+    const id = Math.floor(Math.random() * 100);
+
+    const data = { title, price, id };
     dispatch(addProduct(data));
 
     setTitle("");

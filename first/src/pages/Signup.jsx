@@ -1,15 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { signup } from "../store/addSlice";
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const hanelSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    const id = Math.floor(Math.random() * 100);
+    const data = { email, password, id };
+    dispatch(signup(data));
     setEmail("");
     setPassword("");
+    navigate("/signin");
   };
   return (
     <form onSubmit={hanelSubmit}>

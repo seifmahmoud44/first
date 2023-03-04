@@ -1,13 +1,20 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { signin } from "../store/addSlice";
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const date = { email, password };
+  const loggedIn = useSelector((state) => state.loggedIn);
+  const navigate = useNavigate();
 
   const hanelSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+    dispatch(signin(date));
+    loggedIn && navigate("/");
     setEmail("");
     setPassword("");
   };
